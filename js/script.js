@@ -10,7 +10,7 @@ const modalImage = document.getElementById('modalImage');
 const modalTitle = document.getElementById('modalTitle');
 const modalDate = document.getElementById('modalDate');
 const modalExplanation = document.getElementById('modalExplanation');
-const apiKey = window.NASA_API_KEY || 'DEMO_KEY'; // Use the API key from config.js, or fallback to DEMO_KEY
+const apiKey = window.NASA_API_KEY || 'mVFpLqukKXZZixLcgZztvoctsFGlGjCiT70Tj9O6'; // Use the API key from config.js, or fallback to DEMO_KEY
 
 // Call the setupDateInputs function from dateRange.js
 // This sets up the date pickers to:
