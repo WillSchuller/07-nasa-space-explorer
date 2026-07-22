@@ -87,20 +87,17 @@ button:hover {
   }
 }
 
-/* Gallery flex container */
+/* Gallery grid container */
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
-  justify-content: center;
+  align-items: start;
 }
 
-/* Gallery items */
-.gallery-item {
-  flex: 1 1 100%;  /* full width by default */
-  min-width: 280px;
-  max-width: 500px;
+/* Gallery cards */
+.space-card {
   background: white;
   padding: 10px;
   border-radius: 8px;
@@ -108,26 +105,99 @@ button:hover {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-height: 360px;
+  cursor: pointer;
 }
 
-/* Three columns on wider screens */
-@media (min-width: 1000px) {
-  .gallery-item {
-    flex: 0 1 31%;
-  }
+.space-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-.gallery-item img {
+.space-card img {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
   border-radius: 4px;
 }
 
-.gallery-item p {
+.space-card h2 {
   margin-top: 10px;
-  padding: 5px;
+  font-size: 18px;
+}
+
+.space-card p {
+  margin-top: 8px;
+  padding: 5px 0;
   font-size: 14px;
+}
+
+/* Three columns on larger desktop screens */
+@media (min-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .space-card {
+    min-height: 420px;
+  }
+}
+
+/* Modal overlay */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+
+.modal-image {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.modal-date {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.modal-explanation {
+  line-height: 1.6;
+  color: #333;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: #eee;
+  font-size: 26px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /* Placeholder content */
