@@ -1,0 +1,5 @@
+# Local API key or secret config files
+config.js
+keys.js
+.env
+.env.*

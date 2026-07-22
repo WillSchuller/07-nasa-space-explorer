@@ -3,13 +3,14 @@ const startInput = document.getElementById('startDate');
 const endInput = document.getElementById('endDate');
 const gallery = document.getElementById('gallery');
 const getImagesButton = document.querySelector('button');
+const loadingMessage = document.getElementById('loadingMessage');
 const modal = document.getElementById('modal');
 const closeModalButton = document.getElementById('closeModal');
 const modalImage = document.getElementById('modalImage');
 const modalTitle = document.getElementById('modalTitle');
 const modalDate = document.getElementById('modalDate');
 const modalExplanation = document.getElementById('modalExplanation');
-const apiKey = 'DEMO_KEY';
+const apiKey = window.NASA_API_KEY || 'DEMO_KEY'; // Use the API key from config.js, or fallback to DEMO_KEY
 
 // Call the setupDateInputs function from dateRange.js
 // This sets up the date pickers to:
@@ -19,6 +20,7 @@ setupDateInputs(startInput, endInput);
 
 // When the user clicks the button, request the APOD images
 // for the selected date range from the NASA API.
+// If a real key is added to a local config file, it will be used here.
 getImagesButton.addEventListener('click', () => {
   const startDate = startInput.value;
   const endDate = endInput.value;
@@ -26,6 +28,9 @@ getImagesButton.addEventListener('click', () => {
   if (!startDate || !endDate) {
     return;
   }
+
+  gallery.innerHTML = '';
+  loadingMessage.classList.remove('hidden');
 
   const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=${startDate}&end_date=${endDate}`;
 
@@ -35,6 +40,7 @@ getImagesButton.addEventListener('click', () => {
       gallery.innerHTML = '';
 
       if (!Array.isArray(data) || data.length === 0) {
+        loadingMessage.classList.add('hidden');
         gallery.innerHTML = '<p>No space images were found for that date range.</p>';
         return;
       }
@@ -68,8 +74,11 @@ getImagesButton.addEventListener('click', () => {
         card.appendChild(date);
         gallery.appendChild(card);
       });
+
+      loadingMessage.classList.add('hidden');
     })
     .catch(() => {
+      loadingMessage.classList.add('hidden');
       gallery.innerHTML = '<p>There was a problem loading the space images.</p>';
     });
 });
